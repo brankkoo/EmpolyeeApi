@@ -24,7 +24,13 @@ namespace EmpolyeeApi.Controllers
         [HttpGet]
         public List<Employee> GetEmployees(int page, int size) 
         {
-            return _employeeService.GetEmployees(page,size);
+            return _employeeService.GetEmployees(page,size).ToList();
+        }
+
+        [HttpPost]
+        public Employee InsertEmployee(string name, string lastName, string Adress, float pay) 
+        {
+            return  _employeeService.InsertEmployee(name, lastName, Adress, pay);
         }
     }
 }

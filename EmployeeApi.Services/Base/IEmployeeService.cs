@@ -9,10 +9,10 @@ namespace EmployeeApi.Services.Base
 {
     public interface IEmployeeService
     {
-        public List<Employee> GetEmployees(int page, int size);
+        public IEnumerable<Employee> GetEmployees(int page, int size);
 
         public Employee GetById(Guid id);
 
-        public Employee InsertEmployee(Employee employee);
+        public Employee InsertEmployee(string name, string lastName, string Adress, float pay);
     }
 }
