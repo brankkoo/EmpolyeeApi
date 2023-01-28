@@ -9,7 +9,7 @@ namespace EmployeeApi.Services.Base
 {
     public interface IEmployeeService
     {
-        public  Task<List<Employee>> GetEmployees(int page, int size);
+        public  IAsyncEnumerable<Employee> GetEmployees(int page, int size);
 
         public IAsyncEnumerable<Employee> GetByIds(Guid[] ids);
 

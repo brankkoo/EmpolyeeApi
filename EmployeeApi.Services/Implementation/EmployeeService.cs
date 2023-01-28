@@ -27,19 +27,15 @@ namespace EmployeeApi.Services.Implementation
             }
         }
 
-        public async Task<List<Employee>> GetEmployees(int page, int size)
+        public async IAsyncEnumerable<Employee> GetEmployees(int page, int size)
         {
             var employees = await _adapter.GetEmployees().ToListAsync();
-            if (page > 0)
+
+            foreach (var employee in employees.Skip((page - 1) * size).Take(size))
             {
-                foreach (var employee in employees.Skip((page - 1) * size).Take(size))
-                {
-                    employee.Pay.NetoPay = employee.Pay.BrutoPay - employee.Pay.PIO + employee.Pay.Tax + employee.Pay.UnemployeementPlan + employee.Pay.Insurance;
-                }
-                return employees;
+                employee.Pay.NetoPay = employee.Pay.BrutoPay - employee.Pay.PIO + employee.Pay.Tax + employee.Pay.UnemployeementPlan + employee.Pay.Insurance;
+                yield return employee;
             }
-            else
-                throw new Exception("Page Num must be higher than 0");
         }
 
         public Employee InsertEmployee(string name, string lastName, string Adress, float pay)
