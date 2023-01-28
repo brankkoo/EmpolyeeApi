@@ -13,9 +13,15 @@ namespace EmployeeApi.Services.Implementation
             _adapter = adapter;
         }
 
-        public Employee GetById(Guid id)
+        public async IAsyncEnumerable<Employee> GetByIds(Guid[] ids)
         {
-            throw new NotImplementedException();
+            var employees = await _adapter.GetEmployees().ToListAsync();
+            foreach (var id in ids)
+            {
+                var employee = employees.Where(e => e.EmployeeId == id).FirstOrDefault();
+                if (employee != null)
+                    yield return employee;
+            }
         }
 
         public  async Task<List<Employee>> GetEmployees(int page, int size)

@@ -11,7 +11,7 @@ namespace EmployeeApi.Services.Base
     {
         public  Task<List<Employee>> GetEmployees(int page, int size);
 
-        public Employee GetById(Guid id);
+        public IAsyncEnumerable<Employee> GetByIds(Guid[] ids);
 
         public Employee InsertEmployee(string name, string lastName, string Adress, float pay);
     }
