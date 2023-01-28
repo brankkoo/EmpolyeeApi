@@ -22,13 +22,25 @@ namespace EmpolyeeApi.Controllers
         /// <param name="size"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<List<Employee>> GetEmployees(int page, int size) 
+        [Route("get-all-employees")]
+        public async Task<List<Employee>> GetEmployees([FromQuery]int page, [FromQuery]int size) 
         {
             return await _employeeService.GetEmployees(page,size);
         }
+        
+        [HttpGet]
+        [Route("get-employees-by-ids")]
+        public async Task<List<Employee>> GetEmployeesByIds([FromQuery]Guid[] ids) 
+        {
+            if (ids.Length > 0)
+                return await _employeeService.GetByIds(ids).ToListAsync();
+            else
+                throw new Exception("You must enter at least one Id");
+        }
 
         [HttpPost]
-        public Employee InsertEmployee(string name, string lastName, string Adress, float pay) 
+        [Route("Insert-Employee")]
+        public Employee InsertEmployee(string name,  string lastName, string Adress,  float pay) 
         {
             return  _employeeService.InsertEmployee(name, lastName, Adress, pay);
         }

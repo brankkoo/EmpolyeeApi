@@ -13,12 +13,21 @@ namespace EmployeeApi.Services.Implementation
             _adapter = adapter;
         }
 
-        public Employee GetById(Guid id)
+        public async IAsyncEnumerable<Employee> GetByIds(Guid[] ids)
         {
-            throw new NotImplementedException();
+            var employees = await _adapter.GetEmployees().ToListAsync();
+            foreach (var id in ids)
+            {
+                var employee = employees.Where(e => e.EmployeeId == id).FirstOrDefault();
+                if (employee != null)
+                {
+                    employee.Pay.NetoPay = employee.Pay.BrutoPay - employee.Pay.PIO + employee.Pay.Tax + employee.Pay.UnemployeementPlan + employee.Pay.Insurance;
+                    yield return employee;
+                }
+            }
         }
 
-        public  async Task<List<Employee>> GetEmployees(int page, int size)
+        public async Task<List<Employee>> GetEmployees(int page, int size)
         {
             var employees = await _adapter.GetEmployees().ToListAsync();
             if (page > 0)
@@ -42,7 +51,7 @@ namespace EmployeeApi.Services.Implementation
                 Address = Adress,
                 Pay = new Pay { BrutoPay = pay }
             };
-            
+
             _adapter.InsertEmployee(employee);
             employee.Pay.NetoPay = employee.Pay.BrutoPay - employee.Pay.PIO + employee.Pay.Tax + employee.Pay.UnemployeementPlan + employee.Pay.Insurance;
             return employee;
