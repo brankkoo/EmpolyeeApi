@@ -11,7 +11,7 @@ namespace EmployeeApi.DataAccess.Base
     public interface IEmployeeRepository
     {
 
-        public IEnumerable<Employee> GetEmployees();
+        public IAsyncEnumerable<Employee> GetEmployees();
 
         public Employee InsertEmployee(Employee employee);
     }

@@ -22,9 +22,9 @@ namespace EmpolyeeApi.Controllers
         /// <param name="size"></param>
         /// <returns></returns>
         [HttpGet]
-        public List<Employee> GetEmployees(int page, int size) 
+        public async Task<List<Employee>> GetEmployees(int page, int size) 
         {
-            return _employeeService.GetEmployees(page,size).ToList();
+            return await _employeeService.GetEmployees(page,size);
         }
 
         [HttpPost]

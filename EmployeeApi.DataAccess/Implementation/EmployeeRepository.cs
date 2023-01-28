@@ -12,9 +12,16 @@ namespace EmployeeApi.DataAccess.Implementation
         {
             _context = context;
         }
-        public IEnumerable<Employee> GetEmployees()
+        public async IAsyncEnumerable<Employee> GetEmployees()
         {
-           return _context.Employees.AsEnumerable();
+           
+            IAsyncEnumerable<Employee> employees =  _context.Employees.Where(e => e.Pay != null).Include("Pay").AsAsyncEnumerable();
+            
+            await foreach (var employee in  employees)
+            {
+              yield return employee;
+            }
+            
         }
 
         public Employee InsertEmployee(Employee employee)
