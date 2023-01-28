@@ -1,6 +1,7 @@
 ﻿using EmployeeApi.DataAccess.Base;
 using EmployeeApi.DataContext.Contexts;
 using EmployeeApi.Models.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeApi.DataAccess.Implementation
 {
@@ -11,14 +12,26 @@ namespace EmployeeApi.DataAccess.Implementation
         {
             _context = context;
         }
-        public IEnumerable<Employee> GetEmployees()
+        public async IAsyncEnumerable<Employee> GetEmployees()
         {
-           return _context.Employees;
+           
+            IAsyncEnumerable<Employee> employees =  _context.Employees.Where(e => e.Pay != null).Include("Pay").AsAsyncEnumerable();
+            
+            await foreach (var employee in  employees)
+            {
+              yield return employee;
+            }
+            
         }
 
         public Employee InsertEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            var emp = _context.Employees.Include(b => b.Pay);
+            
+            _context.Employees.Add(employee);
+            
+            _context.SaveChanges();
+            return employee;
         }
     }
 }

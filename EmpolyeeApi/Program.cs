@@ -4,6 +4,7 @@ using EmployeeApi.DataContext.Contexts;
 using EmployeeApi.Services.Base;
 using EmployeeApi.Services.Implementation;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace EmpolyeeApi
 {
@@ -22,7 +23,10 @@ namespace EmpolyeeApi
             
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeService,EmployeeService>();
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
