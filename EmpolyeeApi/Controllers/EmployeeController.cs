@@ -25,7 +25,10 @@ namespace EmpolyeeApi.Controllers
         [Route("get-all-employees")]
         public async Task<List<Employee>> GetEmployees([FromQuery]int page, [FromQuery]int size) 
         {
-            return await _employeeService.GetEmployees(page,size);
+            if (page > 0)
+                return await _employeeService.GetEmployees(page, size).ToListAsync();
+            else
+                throw new Exception("Page number must be higher than zero");
         }
         
         [HttpGet]
