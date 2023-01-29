@@ -1,4 +1,5 @@
-﻿using EmployeeApi.Models.Models;
+﻿using EmployeeApi.Models.Base;
+using EmployeeApi.Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace EmployeeApi.Services.Base
         public IAsyncEnumerable<Employee> GetByIds(Guid[] ids);
 
         public Employee InsertEmployee(string name, string lastName, string Adress, float pay);
+
+        public  Task<List<IPay>> ConvertPay(Guid[] employeeId);
     }
 }
