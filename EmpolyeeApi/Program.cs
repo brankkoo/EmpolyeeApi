@@ -23,6 +23,7 @@ namespace EmpolyeeApi
             
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IConversionService, ConversionService>();
+            builder.Services.AddScoped<IFileService, FileService>();
             builder.Services.AddScoped<IEmployeeService,EmployeeService>();
             builder.Services.AddControllers()
                 .AddNewtonsoftJson(options =>
