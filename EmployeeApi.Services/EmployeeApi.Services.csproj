@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.Linq.Async" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EmployeeApi.DataAccess\EmployeeApi.DataAccess.csproj" />
+    <ProjectReference Include="..\EmployeeApi.Helper\EmployeeApi.Helper.csproj" />
     <ProjectReference Include="..\EmployeeApi.Models\EmployeeApi.Models.csproj" />
   </ItemGroup>
 

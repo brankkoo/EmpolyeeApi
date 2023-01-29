@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeApi.Models", "Emplo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeApi.DataContext", "EmployeeApi.DataContext\EmployeeApi.DataContext.csproj", "{440D02DD-F910-4428-BF05-6676D95E16DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeApi.DataAccess", "EmployeeApi.DataAccess\EmployeeApi.DataAccess.csproj", "{A350EDD0-B14C-43F8-A7BF-3FE71180ACCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeApi.DataAccess", "EmployeeApi.DataAccess\EmployeeApi.DataAccess.csproj", "{A350EDD0-B14C-43F8-A7BF-3FE71180ACCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeApi.Services", "EmployeeApi.Services\EmployeeApi.Services.csproj", "{DC13C248-405E-4A91-BBA7-DF0C32D1669E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeApi.Services", "EmployeeApi.Services\EmployeeApi.Services.csproj", "{DC13C248-405E-4A91-BBA7-DF0C32D1669E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeApi.Helper", "EmployeeApi.Helper\EmployeeApi.Helper.csproj", "{B424A143-6638-44A2-930B-41E9BDC019EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DC13C248-405E-4A91-BBA7-DF0C32D1669E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC13C248-405E-4A91-BBA7-DF0C32D1669E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC13C248-405E-4A91-BBA7-DF0C32D1669E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B424A143-6638-44A2-930B-41E9BDC019EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B424A143-6638-44A2-930B-41E9BDC019EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B424A143-6638-44A2-930B-41E9BDC019EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B424A143-6638-44A2-930B-41E9BDC019EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

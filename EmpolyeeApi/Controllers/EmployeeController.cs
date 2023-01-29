@@ -1,4 +1,5 @@
-﻿using EmployeeApi.Models.Models;
+﻿using EmployeeApi.Models.Base;
+using EmployeeApi.Models.Models;
 using EmployeeApi.Services.Base;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,10 +34,23 @@ namespace EmpolyeeApi.Controllers
         
         [HttpGet]
         [Route("get-employees-by-ids")]
-        public async Task<List<Employee>> GetEmployeesByIds([FromQuery]Guid[] ids) 
+        public async Task<List<(Employee employee,string url)>> GetEmployeesByIds([FromQuery]Guid[] ids) 
         {
+            List<Employee> employees;
+            (Employee,string) employeeIdsHateOas;
+            List<(Employee, string)> hateOas = new List<(Employee, string)>();
+
             if (ids.Length > 0)
-                return await _employeeService.GetByIds(ids).ToListAsync();
+            {
+                employees = await _employeeService.GetByIds(ids).ToListAsync();
+                foreach (var employee in employees)
+                {
+                    employeeIdsHateOas.Item1 = employee;
+                    employeeIdsHateOas.Item2 = $"Employee/get-converted-pay?employeeId={employee.EmployeeId}";
+                    hateOas.Add(employeeIdsHateOas);
+                }
+                return hateOas;
+            }
             else
                 throw new Exception("You must enter at least one Id");
         }
@@ -46,6 +60,13 @@ namespace EmpolyeeApi.Controllers
         public Employee InsertEmployee(string name,  string lastName, string Adress,  float pay) 
         {
             return  _employeeService.InsertEmployee(name, lastName, Adress, pay);
+        }
+
+        [HttpGet]
+        [Route("get-converted-pay")]
+        public async Task<List<IPay>> GetConvrtedPays([FromQuery]Guid employeeId) 
+        {
+          return await _employeeService.ConvertPay(new Guid[] { employeeId });
         }
     }
 }
