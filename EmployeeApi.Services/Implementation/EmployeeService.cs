@@ -4,7 +4,7 @@ using EmployeeApi.Models.Base;
 using EmployeeApi.Models.CalculatedModels;
 using EmployeeApi.Models.Models;
 using EmployeeApi.Services.Base;
-
+using EmployeeApi.Services.Extensions;
 
 namespace EmployeeApi.Services.Implementation
 {
@@ -26,7 +26,7 @@ namespace EmployeeApi.Services.Implementation
                 var employee = employees.Where(e => e.EmployeeId == id).FirstOrDefault();
                 if (employee != null)
                 {
-                    employee.Pay.NetoPay = employee.Pay.BrutoPay - employee.Pay.PIO + employee.Pay.Tax + employee.Pay.UnemployeementPlan + employee.Pay.Insurance;
+                    employee.Pay.NetoPay = employee.CalculateEmployeeNeto();
                     yield return employee;
                 }
             }
@@ -38,7 +38,7 @@ namespace EmployeeApi.Services.Implementation
 
             foreach (var employee in employees.Skip((page - 1) * size).Take(size))
             {
-                employee.Pay.NetoPay = employee.Pay.BrutoPay - employee.Pay.PIO + employee.Pay.Tax + employee.Pay.UnemployeementPlan + employee.Pay.Insurance;
+                employee.Pay.NetoPay = employee.CalculateEmployeeNeto();
                 yield return employee;
             }
         }
@@ -54,7 +54,7 @@ namespace EmployeeApi.Services.Implementation
             };
 
             _adapter.InsertEmployee(employee);
-            employee.Pay.NetoPay = employee.Pay.BrutoPay - employee.Pay.PIO + employee.Pay.Tax + employee.Pay.UnemployeementPlan + employee.Pay.Insurance;
+            employee.Pay.NetoPay = employee.CalculateEmployeeNeto();
             return employee;
         }
 

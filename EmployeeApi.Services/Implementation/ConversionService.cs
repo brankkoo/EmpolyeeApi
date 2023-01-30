@@ -12,7 +12,7 @@ namespace EmployeeApi.Services.Implementation
             //failing request FIX ASAP 
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("apikey", "QOrSVVDRdu0IGpMRR87bXKeKG6NulLzy");
+                client.DefaultRequestHeaders.Add("apikey", "cNu44RDU1bLWSHf29AZq6VygGRnvZ25G");
                 var responseEur = await client.GetAsync($"https://api.apilayer.com/currency_data/convert?to=EUR&from=RSD&amount={rsd}");
                 var responseUsd = await client.GetAsync($"https://api.apilayer.com/currency_data/convert?to=USD&from=RSD&amount={rsd}");
                 if (responseEur.IsSuccessStatusCode & responseUsd.IsSuccessStatusCode)

@@ -10,5 +10,6 @@ namespace EmployeeApi.Services.Base
     {
         public Task<byte[]> MakeEmployeesExcelFile();
         public Task<byte[]> MakeEmployeesCsvFile();
+        public Task<byte[]> MakeEmployeePdfFile(Guid employeeId);
     }
 }

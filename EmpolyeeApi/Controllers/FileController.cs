@@ -13,6 +13,7 @@ namespace EmpolyeeApi.Controllers
         {
             _fileService = fileService;
         }
+
         [HttpGet]
         [Route("get-employees-excel")]
         public async Task<IActionResult> GetEmployeesExcel() 
@@ -33,6 +34,17 @@ namespace EmpolyeeApi.Controllers
                 "text/csv",
                 "Employees.csv"
                 );
+        }
+
+        [HttpGet]
+        [Route("get-employee-detailed-pdf")]
+        public async Task<IActionResult> GetEmployeesJson(Guid employeeId) 
+        {
+            return File(
+               await _fileService.MakeEmployeePdfFile(employeeId),
+               "application/pdf",
+               "Employee Report.pdf"
+               );
         }
     }
 }
