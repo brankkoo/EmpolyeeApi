@@ -40,11 +40,14 @@ namespace EmpolyeeApi.Controllers
         [Route("get-employee-detailed-pdf")]
         public async Task<IActionResult> GetEmployeesJson(Guid employeeId) 
         {
-            return File(
-               await _fileService.MakeEmployeePdfFile(employeeId),
-               "application/pdf",
-               "Employee Report.pdf"
-               );
+            if (employeeId != null || employeeId != Guid.Empty)
+                return File(
+                await _fileService.MakeEmployeePdfFile(employeeId),
+                "application/pdf",
+                "Employee Report.pdf"
+                    );
+            else
+                throw new Exception("employee id cannot be empty");
         }
     }
 }

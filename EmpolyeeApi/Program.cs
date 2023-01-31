@@ -24,6 +24,7 @@ namespace EmpolyeeApi
                 options.UseSqlServer(builder.Configuration.GetSection("SqlServer")["ConnectionStrings"]);
             });
             builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+            builder.Services.AddScoped<IEmailService,EmailService>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IConversionService, ConversionService>();
             builder.Services.AddScoped<IFileService, FileService>();

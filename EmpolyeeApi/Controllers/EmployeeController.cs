@@ -59,14 +59,19 @@ namespace EmpolyeeApi.Controllers
         [Route("Insert-Employee")]
         public Employee InsertEmployee(string name,  string lastName, string Adress,  float pay) 
         {
-            return  _employeeService.InsertEmployee(name, lastName, Adress, pay);
+            if (name != null && lastName != null && Adress != null && pay < 0)
+                return _employeeService.InsertEmployee(name, lastName, Adress, pay);
+            else throw new Exception("no field can be empty");
         }
 
         [HttpGet]
         [Route("get-converted-pay")]
         public async Task<List<IPay>> GetConvrtedPays([FromQuery]Guid employeeId) 
         {
-          return await _employeeService.ConvertPay(new Guid[] { employeeId });
+            if (employeeId != null || employeeId != Guid.Empty)
+                return await _employeeService.ConvertPay(new Guid[] { employeeId });
+            else
+                throw new Exception("employee id cannot be empty");
         }
     }
 }
